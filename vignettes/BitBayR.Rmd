@@ -13,7 +13,7 @@ vignette: >
 
 `BitBayR` is a simple R public API client to the BitBay crypto-currency exhange. 
 
-It consists of 6 functions: `bitbay_orderbook`, `bitbay_profit`, `bitbay_trades` `bitbay_trades_from_date`, `bitbay_aggregate` and `bitbay_ticker`
+It consists of 6 functions: `bitbay_orderbook`, `bitbay_profit`, `bitbay_trades` `bitbay_trades_from_date`, `bitbay_aggregate` and `bitbay_ticker`.
 
 
 Available crypto currencies: 
