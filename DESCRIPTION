@@ -1,0 +1,16 @@
+Package: BitBayR
+Type: Package
+Title: R Public API Client to BitBay Crypto-Currency Exhange 
+Version: 0.9.0
+Author: Michal Majka
+Maintainer: Michal Majka <michalmajka@hotmail.com>
+URL: http://github.com/majkamichal/BitBayR
+Description: A simple R Public API Client to BitBay Crypto-Currency Exhange.
+Imports: jsonlite, 
+         xts
+License: GPL-2
+Encoding: UTF-8
+RoxygenNote: 6.0.1
+Suggests: knitr,
+          rmarkdown
+VignetteBuilder: knitr
