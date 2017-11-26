@@ -12,7 +12,7 @@ Available crypto currencies:
 
 -   `BTC` (Bitcoin)
 
--   `ETC` (Ethereum)
+-   `ETH` (Ethereum)
 
 -   `LSK` (Lisk)
 

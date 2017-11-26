@@ -1,6 +1,6 @@
 bitbay_check <- function(coin, currency) {
 
-    all_coins <- c("Bitcoin" =  "BTC", "Ethereum" = "ETC", "Lisk" = "LSK",
+    all_coins <- c("Bitcoin" =  "BTC", "Ethereum" = "ETH", "Lisk" = "LSK",
                    "Litecoin" = "LTC", "Game" = "GAME", "Dash" = "DASH",
                    "Bitcoin cash" = "BCC")
     all_currencies <- c("US Dollar" = "USD", "Zloty" = "PLN", "Euro" = "EUR")
