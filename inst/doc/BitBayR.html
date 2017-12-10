@@ -12,7 +12,7 @@
 
 <meta name="author" content="Michal Majka" />
 
-<meta name="date" content="2017-11-05" />
+<meta name="date" content="2017-12-10" />
 
 <title>BitBayR</title>
 
@@ -70,14 +70,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">BitBayR</h1>
 <h4 class="author"><em>Michal Majka</em></h4>
-<h4 class="date"><em>2017-11-05</em></h4>
+<h4 class="date"><em>2017-12-10</em></h4>
 
 
 
 <div id="overview" class="section level1">
 <h1>Overview</h1>
 <p><code>BitBayR</code> is a simple R public API client to the BitBay crypto-currency exhange.</p>
-<p>It consists of 6 functions: <code>bitbay_orderbook</code>, <code>bitbay_profit</code>, <code>bitbay_trades</code> <code>bitbay_trades_from_date</code>, <code>bitbay_aggregate</code> and <code>bitbay_ticker</code></p>
+<p>It consists of 6 functions: <code>bitbay_orderbook</code>, <code>bitbay_profit</code>, <code>bitbay_trades</code> <code>bitbay_trades_from_date</code>, <code>bitbay_aggregate</code> and <code>bitbay_ticker</code>.</p>
 <p>Available crypto currencies:</p>
 <ul>
 <li><p><code>BTC</code> (Bitcoin)</p></li>
@@ -104,76 +104,79 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 order_book &lt;-<span class="st"> </span><span class="kw">bitbay_orderbook</span>(<span class="dt">coin =</span> <span class="st">&quot;BTC&quot;</span>, <span class="dt">currency =</span> <span class="st">&quot;EUR&quot;</span>)
 <span class="kw">head</span>(order_book<span class="op">$</span>bids)</code></pre></div>
-<pre><code>##       Bid     Volume     Price
-## 1 6382.03 0.00452834  28.90000
-## 2 6382.01 0.04000000 255.28040
-## 3 6382.00 0.03133814 200.00001
-## 4 6380.00 0.01160502  74.04003
-## 5 6330.00 0.03159558 200.00002
-## 6 6316.02 0.10000000 631.60200</code></pre>
+<pre><code>##        Bid     Volume       Price
+## 1 12050.00 0.00245311   29.559976
+## 2 12001.02 0.04166313  500.000056
+## 3 12001.00 0.00040247    4.830042
+## 4 12000.00 0.02000000  240.000000
+## 5 11999.01 0.41670104 4999.999946
+## 6 11800.00 0.21109746 2490.950028</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(order_book<span class="op">$</span>asks)</code></pre></div>
-<pre><code>##       Ask     Volume      Price
-## 1 6463.49 0.00369769   23.89998
-## 2 6495.01 0.00402001   26.11001
-## 3 6637.76 0.36000000 2389.59360
-## 4 6637.77 0.05000000  331.88850
-## 5 6640.00 0.23000000 1527.20000
-## 6 6666.00 0.02451656  163.42739</code></pre>
+<pre><code>##        Ask     Volume      Price
+## 1 12980.00 0.00143314   18.60216
+## 2 12985.95 0.00316512   41.10209
+## 3 12989.99 0.00329245   42.76889
+## 4 12995.99 0.00229410   29.81410
+## 5 12999.98 0.10000000 1299.99800
+## 6 13000.00 0.34060125 4427.81625</code></pre>
 </div>
 <div id="bitbay_profit" class="section level2">
 <h2>- bitbay_profit</h2>
 <p>The function <code>bitbay_profit</code> performs a theoretical/virtual market order. That is, it theoretically sells some specific volume of a specific crypto currency for a specific currency. In the example below one Bitcoin is sold for EUR assuming a prior investment of 5000€ and transaction fees 0.3%.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bitbay_profit</span>(<span class="dt">coin =</span> <span class="st">&quot;BTC&quot;</span>, <span class="dt">amount =</span> <span class="dv">1</span>, <span class="dt">currency =</span> <span class="st">&quot;EUR&quot;</span>, <span class="dt">investment =</span> <span class="dv">5000</span>, <span class="dt">fee =</span> <span class="fl">0.003</span>)</code></pre></div>
 <pre><code>## $transactions
-##        bid     amount      price         fee
-## 1  6382.03 0.00452834   28.90000  0.08670001
-## 2  6382.01 0.04000000  255.28040  0.76584120
-## 3  6382.00 0.03133814  200.00001  0.60000003
-## 4  6380.00 0.01160502   74.04003  0.22212008
-## 5  6330.00 0.03159558  200.00002  0.60000006
-## 6  6316.02 0.10000000  631.60200  1.89480600
-## 7  6313.17 0.01343541   84.82003  0.25446008
-## 8  6313.11 0.01740663  109.88997  0.32966991
-## 9  6313.00 0.00955647   60.33000  0.18098999
-## 10 6306.89 0.74053441 4670.46907 14.01140720
+##         bid     amount       price         fee
+## 1  12050.00 0.00245311   29.559976  0.08867993
+## 2  12001.02 0.04166313  500.000056  1.50000017
+## 3  12001.00 0.00040247    4.830042  0.01449013
+## 4  12000.00 0.02000000  240.000000  0.72000000
+## 5  11999.01 0.41670104 4999.999946 14.99999984
+## 6  11800.00 0.21109746 2490.950028  7.47285008
+## 7  11600.00 0.01206897  140.000052  0.42000016
+## 8  11500.00 0.03484957  400.770055  1.20231017
+## 9  11400.00 0.04340439  494.810046  1.48443014
+## 10 11131.00 0.00637319   70.939978  0.21281993
+## 11 11129.00 0.08380178  932.630010  2.79789003
+## 12 11020.00 0.01814791  199.989968  0.59996990
+## 13 11000.00 0.07675000  844.250000  2.53275000
+## 14 10802.00 0.00092575    9.999951  0.02999985
+## 15 10660.56 0.00246985   26.329984  0.07898995
+## 16 10658.00 0.02889138  307.924328  0.92377298
 ## 
 ## $summary
-##                        Value
-## Amount               1.00000
-## Amount sold          1.00000
-## Money (with fees) 6296.38552
-## Investment        5000.00000
-## Fee (in %)           0.00300
-## Profit (in %)       25.92771
+##            Amount       Amount sold Money (with fees)        Investment 
+##            1.0000            1.0000        11657.9055         5000.0000 
+##        Fee (in %)     Profit (in %) 
+##            0.0030          133.1581 
 ## 
 ## attr(,&quot;pair&quot;)
 ## [1] &quot;BTC/EUR&quot;
 ## attr(,&quot;download_time&quot;)
-## [1] &quot;2017-11-05 20:16:56 CET&quot;</code></pre>
+## [1] &quot;2017-12-10 16:00:47 CET&quot;</code></pre>
 </div>
 <div id="bitbay_trades-and-bitbay_trades_from_date" class="section level2">
 <h2>- bitbay_trades and bitbay_trades_from_date</h2>
 <p>The function <code>bitbay_trades</code> can be used to download last <code>n</code> transactions by specifying the parameter <code>last_trades</code>. In order to download all historic transactions the parameter <code>last_trades</code> can be set to <code>&quot;all&quot;</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">last_50_trades &lt;-<span class="st"> </span><span class="kw">bitbay_trades</span>(<span class="dt">coin =</span> <span class="st">&quot;BTC&quot;</span>, <span class="dt">currency =</span> <span class="st">&quot;EUR&quot;</span>, <span class="dt">last_trades =</span> <span class="dv">50</span>)
 <span class="kw">tail</span>(last_50_trades)</code></pre></div>
-<pre><code>##                   Date   Price Order     Volume   TID
-## 45 2017-11-05 19:23:36 6577.77   buy 0.05000000 51001
-## 46 2017-11-05 19:23:36 6470.61   buy 0.00561925 51002
-## 47 2017-11-05 19:23:36 6454.49   buy 0.00373848 51003
-## 48 2017-11-05 19:23:36 6669.00   buy 0.16196032 51004
-## 49 2017-11-05 19:23:36 6521.30   buy 0.00063791 51005
-## 50 2017-11-05 19:35:00 6521.30  sell 0.00214068 51006</code></pre>
+<pre><code>##                   Date    Price Order     Volume   TID
+## 45 2017-12-10 15:39:12 12801.00  sell 0.02000000 70879
+## 46 2017-12-10 15:39:21 12798.75  sell 0.02560685 70880
+## 47 2017-12-10 15:39:21 12800.00  sell 0.00781300 70881
+## 48 2017-12-10 15:39:25 12751.06  sell 0.00250960 70882
+## 49 2017-12-10 15:39:33 12750.04  sell 0.00125490 70883
+## 50 2017-12-10 16:00:28 12309.01   buy 0.00259566 70884</code></pre>
 <p>The function <code>bitbay_trades_from_date</code> does the same task, however, it downloads all transactions occurred after a specific date. In the example below, all trades within last 3 hours.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">last_trades_3h &lt;-<span class="st"> </span><span class="kw">bitbay_trades_from_date</span>(<span class="dt">coin =</span> <span class="st">&quot;BTC&quot;</span>, <span class="dt">currency =</span> <span class="st">&quot;EUR&quot;</span>, 
                                            <span class="dt">date =</span> <span class="kw">Sys.time</span>() <span class="op">-</span><span class="st"> </span><span class="dv">60</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span> <span class="op">*</span><span class="st"> </span><span class="dv">3</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(last_trades_3h)</code></pre></div>
-<pre><code>##                   Date   Price Order     Volume   TID
-## 42 2017-11-05 18:23:36 6577.77   buy 0.05000000 51001
-## 43 2017-11-05 18:23:36 6470.61   buy 0.00561925 51002
-## 44 2017-11-05 18:23:36 6454.49   buy 0.00373848 51003
-## 45 2017-11-05 18:23:36 6669.00   buy 0.16196032 51004
-## 46 2017-11-05 18:23:36 6521.30   buy 0.00063791 51005
-## 47 2017-11-05 18:35:00 6521.30  sell 0.00214068 51006</code></pre>
+<pre><code>##                    Date    Price Order     Volume   TID
+## 106 2017-12-10 15:39:12 12801.00  sell 0.02000000 70879
+## 107 2017-12-10 15:39:21 12798.75  sell 0.02560685 70880
+## 108 2017-12-10 15:39:21 12800.00  sell 0.00781300 70881
+## 109 2017-12-10 15:39:25 12751.06  sell 0.00250960 70882
+## 110 2017-12-10 15:39:33 12750.04  sell 0.00125490 70883
+## 111 2017-12-10 16:00:28 12309.01   buy 0.00259566 70884</code></pre>
 </div>
 <div id="bitbay_aggregate" class="section level2">
 <h2>- bitbay_aggregate</h2>
@@ -181,41 +184,38 @@ order_book &lt;-<span class="st"> </span><span class="kw">bitbay_orderbook</span
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">aggr_data_15min &lt;-<span class="st"> </span><span class="kw">bitbay_aggregate</span>(last_50_trades, <span class="dt">aggr_time =</span> <span class="dv">15</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span>)
 <span class="kw">tail</span>(aggr_data_15min)</code></pre></div>
 <pre><code>##                     BTC_EUR.Open BTC_EUR.High BTC_EUR.Low BTC_EUR.Close
-## 2017-11-05 18:15:00      6313.50       6313.5     6313.50        6313.5
-## 2017-11-05 18:30:00      6313.50       6313.5     6313.50        6313.5
-## 2017-11-05 18:45:00      6443.58       6445.0     6443.57        6445.0
-## 2017-11-05 19:00:00      6445.00       6445.0     6445.00        6445.0
-## 2017-11-05 19:15:00      6521.30       6669.0     6444.00        6521.3
-## 2017-11-05 19:30:00      6521.30       6521.3     6521.30        6521.3
+## 2017-12-10 15:00:00     12348.50     12510.05    12348.50      12510.05
+## 2017-12-10 15:15:00     12511.04     12990.00    12511.04      12720.10
+## 2017-12-10 15:30:00     12752.09     12990.00    12750.04      12750.04
+## 2017-12-10 15:45:00     12750.04     12750.04    12750.04      12750.04
+## 2017-12-10 16:00:00     12309.01     12309.01    12309.01      12309.01
 ##                     BTC_EUR.Mean BTC_EUR.Median BTC_EUR.Volume_total
-## 2017-11-05 18:15:00     6313.500       6313.500           0.00000000
-## 2017-11-05 18:30:00     6313.500       6313.500           0.00000000
-## 2017-11-05 18:45:00     6443.932       6443.580           0.00503794
-## 2017-11-05 19:00:00     6443.932       6443.580           0.00000000
-## 2017-11-05 19:15:00     6500.076       6480.205           0.76172875
-## 2017-11-05 19:30:00     6521.300       6521.300           0.00214068
+## 2017-12-10 15:00:00     12478.01       12502.00           0.77958241
+## 2017-12-10 15:15:00     12814.01       12861.53           0.43259673
+## 2017-12-10 15:30:00     12854.42       12859.51           1.02659126
+## 2017-12-10 15:45:00     12854.42       12859.51           0.00000000
+## 2017-12-10 16:00:00     12309.01       12309.01           0.00259566
 ##                     BTC_EUR.Volume_buy BTC_EUR.Volume_sell BTC_EUR.Count
-## 2017-11-05 18:15:00         0.00000000          0.00000000             0
-## 2017-11-05 18:30:00         0.00000000          0.00000000             0
-## 2017-11-05 18:45:00         0.00503794          0.00000000             4
-## 2017-11-05 19:00:00         0.00000000          0.00000000             0
-## 2017-11-05 19:15:00         0.76172875          0.00000000            36
-## 2017-11-05 19:30:00         0.00000000          0.00214068             1</code></pre>
+## 2017-12-10 15:00:00         0.31057658          0.46900583            21
+## 2017-12-10 15:15:00         0.43025645          0.00234028            14
+## 2017-12-10 15:30:00         0.23000000          0.79659126            14
+## 2017-12-10 15:45:00         0.00000000          0.00000000             0
+## 2017-12-10 16:00:00         0.00259566          0.00000000             1</code></pre>
 </div>
 <div id="bitbay_ticker" class="section level2">
 <h2>- bitbay_ticker</h2>
 <p>The function <code>bitbay_ticker</code> can be used to download a ticker for a specific pair.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ticker_BTC_USD &lt;-<span class="st"> </span><span class="kw">bitbay_ticker</span>(<span class="dt">coin =</span> <span class="st">&quot;BTC&quot;</span>, <span class="dt">currency =</span> <span class="st">&quot;USD&quot;</span>)
 ticker_BTC_USD</code></pre></div>
-<pre><code>##   Statistic      Value
-## 1       max 7418.99000
-## 2       min 7150.01000
-## 3      last 7415.08000
-## 4       bid 7315.01000
-## 5       ask 7418.98000
-## 6      vwap 7415.08000
-## 7   average 7415.08000
-## 8    volume   20.37957</code></pre>
+<pre><code>##   Statistic       Value
+## 1       max 15777.00000
+## 2       min 13005.00000
+## 3      last 15369.95000
+## 4       bid 14788.15000
+## 5       ask 15596.97000
+## 6      vwap 15369.95000
+## 7   average 15369.95000
+## 8    volume    14.08136</code></pre>
 </div>
 </div>
 
