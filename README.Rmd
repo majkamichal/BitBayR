@@ -38,7 +38,7 @@ Available currencies:
 # Usage
 
 
-## - bitbay_orderbook
+## bitbay_orderbook
 
 The function `bitbay_orderbook` downloads the actual order book. Its output consists of a list with two dataframes `bids` and `asks`. Each one contains three
 columns `Bid` or `Ask`, `Volume` and `Price`. The price is just `Bid` or `Ask`
@@ -55,7 +55,7 @@ head(order_book$asks)
 ```
 
 
-## - bitbay_profit
+## bitbay_profit
 
 The function `bitbay_profit` performs a theoretical/virtual market order. That is, it  theoretically sells some specific volume of a specific
 crypto currency for a specific currency. In the example below one Bitcoin is sold for 
@@ -66,7 +66,7 @@ EUR assuming a prior investment of 5000€ and transaction fees 0.3%.
 bitbay_profit(coin = "BTC", amount = 1, currency = "EUR", investment = 5000, fee = 0.003)
 ```
 
-## - bitbay_trades and bitbay_trades_from_date
+## bitbay_trades and bitbay_trades_from_date
 
 The function `bitbay_trades` can be used to download last `n` transactions by specifying the parameter `last_trades`. In order to download all historic transactions the parameter `last_trades` can be set to `"all"`.
 
@@ -89,7 +89,7 @@ tail(last_trades_3h)
 ```
 
 
-## - bitbay_aggregate
+## bitbay_aggregate
 
 The function `bitbay_aggregate` takes downloaded transactions as input as well as the time interval length (in seconds) and returns a time-series object of class `xts` with aggregated transactions. 
 
@@ -101,7 +101,7 @@ tail(aggr_data_15min)
 
 
 
-## - bitbay_ticker
+## bitbay_ticker
 
 The function `bitbay_ticker` can be used to download a ticker for a specific pair.
 
