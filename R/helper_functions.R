@@ -1,4 +1,3 @@
-#' @export bitbay_check
 bitbay_check <- function(pair) {
 
     split_pair <- strsplit(pair,split = "/")[[1]]

@@ -11,8 +11,7 @@ bitbay_ticker(pair = "BTC/EUR")
 Available pairs: combinations of "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC" and "PLN", "EUR", "USD", "BTC". They have to be separated by "/".}
 }
 \value{
-A data frame with two columns \code{Statistic} and \code{Value},
-in which rows correspond to the following statistics:
+A named vector with following statistics:
 
   \code{max} is the rate of transaction, which had highest value
 

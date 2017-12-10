@@ -20,7 +20,7 @@ Available pairs: all combinations of
 
 - `BTC` (Bitcoin)  
 
-- `ETC`  (Ethereum)
+- `ETC` (Ethereum)
 
 - `LSK` (Lisk)
 
@@ -39,6 +39,8 @@ and
 - `USD`
 
 - `EUR`
+
+- `BTC`
 
 They have to be separated by `/`. 
 
@@ -110,7 +112,7 @@ tail(aggr_data_15min)
 The function `bitbay_ticker` can be used to download a ticker for a specific pair.
 
 ```{r}
-ticker_BTC_USD <- bitbay_ticker(pair = "BTC/USD")
+ticker_BTC_USD <- bitbay_ticker(pair = "BTC/EUR")
 ticker_BTC_USD
 ```
 

@@ -6,8 +6,7 @@
 #' @param pair a character string with a pair.
 #' Available pairs: combinations of "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC" and "PLN", "EUR", "USD", "BTC". They have to be separated by "/".
 #'
-#' @return A data frame with two columns \code{Statistic} and \code{Value},
-#' in which rows correspond to the following statistics:
+#' @return A named vector with following statistics:
 #'
 #'   \code{max} is the rate of transaction, which had highest value
 #'
@@ -62,13 +61,7 @@ bitbay_ticker <- function(pair = "BTC/EUR") {
     url <- paste0("https://bitbay.net/API/Public/", coin, currency, "/",
                   "ticker", ".json")
 
-    data <- jsonlite::fromJSON(url)
-
-    data <- as.data.frame(do.call(rbind, data))
-    data$type <- rownames(data)
-    data <- data[2:1]
-    rownames(data) <- NULL
-    colnames(data) <- c("Statistic", "Value")
+    data <- unlist(jsonlite::fromJSON(url))
     attr(data, "pair") <- pair
     attr(data, "download_time") <- Sys.time()
     data

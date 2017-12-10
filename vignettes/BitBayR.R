@@ -24,6 +24,6 @@ aggr_data_15min <- bitbay_aggregate(last_50_trades, aggr_time = 15 * 60)
 tail(aggr_data_15min)
 
 ## ------------------------------------------------------------------------
-ticker_BTC_USD <- bitbay_ticker(pair = "BTC/USD")
+ticker_BTC_USD <- bitbay_ticker(pair = "BTC/EUR")
 ticker_BTC_USD
 
