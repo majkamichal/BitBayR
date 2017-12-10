@@ -40,7 +40,7 @@
 bitbay_profit <- function(coin = "BTC", amount = 1, currency = "USD", fee = 0.003, investment = NULL) {
 
     bitbay_check(coin, currency)
-
+    names(amount) <- NULL
     initial_amount <- amount
 
     actual_bids <- bitbay_orderbook(coin, currency)$bids
