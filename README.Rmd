@@ -10,11 +10,11 @@ output: github_document
 It consists of 6 functions: `bitbay_orderbook`, `bitbay_profit`, `bitbay_trades` `bitbay_trades_from_date`, `bitbay_aggregate` and `bitbay_ticker`.
 
 
-Available crypto currencies: 
+Available pairs: all combinations of 
 
 - `BTC` (Bitcoin)  
 
-- `ETC`  (Ethereum)
+- `ETC` (Ethereum)
 
 - `LSK` (Lisk)
 
@@ -26,7 +26,7 @@ Available crypto currencies:
                    
 - `BCC` (Bitcoin cash)
 
-Available currencies: 
+and
 
 - `PLN`
 
@@ -34,6 +34,9 @@ Available currencies:
 
 - `EUR`
 
+- `BTC`
+
+They have to be separated by `/`. 
 
 # Usage
 
@@ -48,7 +51,7 @@ times the `Volume`.
 ```{r}
 library(BitBayR)
 
-order_book <- bitbay_orderbook(coin = "BTC", currency = "EUR")
+order_book <- bitbay_orderbook(pair = "BTC/EUR")
 head(order_book$bids)
 head(order_book$asks)
 
@@ -57,13 +60,11 @@ head(order_book$asks)
 
 ## bitbay_profit
 
-The function `bitbay_profit` performs a theoretical/virtual market order. That is, it  theoretically sells some specific volume of a specific
-crypto currency for a specific currency. In the example below one Bitcoin is sold for 
-EUR assuming a prior investment of 5000€ and transaction fees 0.3%.
+The function `bitbay_profit` performs a theoretical/virtual market order. That is, it  theoretically sells some specific volume of a specific crypto currency for a specific currency. In the example below one Bitcoin is sold for EUR assuming a prior investment of 5000€ and transaction fees 0.3%.
 
 
 ```{r}
-bitbay_profit(coin = "BTC", amount = 1, currency = "EUR", investment = 5000, fee = 0.003)
+bitbay_profit(pair = "BTC/EUR", amount = 1, investment = 5000, fee = 0.003)
 ```
 
 ## bitbay_trades and bitbay_trades_from_date
@@ -71,7 +72,7 @@ bitbay_profit(coin = "BTC", amount = 1, currency = "EUR", investment = 5000, fee
 The function `bitbay_trades` can be used to download last `n` transactions by specifying the parameter `last_trades`. In order to download all historic transactions the parameter `last_trades` can be set to `"all"`.
 
 ```{r}
-last_50_trades <- bitbay_trades(coin = "BTC", currency = "EUR", last_trades = 50)
+last_50_trades <- bitbay_trades(pair = "BTC/EUR", last_trades = 50)
 tail(last_50_trades)
 
 ```
@@ -82,8 +83,7 @@ tail(last_50_trades)
 The function `bitbay_trades_from_date` does the same task, however, it downloads all transactions occurred after a specific date. In the example below, all trades within last 3 hours.
 
 ```{r}
-last_trades_3h <- bitbay_trades_from_date(coin = "BTC", currency = "EUR", 
-                                           date = Sys.time() - 60 * 60 * 3)
+last_trades_3h <- bitbay_trades_from_date(pair = "BTC/EUR", date = Sys.time() - 60 * 60 * 3)
 tail(last_trades_3h)
 
 ```
@@ -106,7 +106,7 @@ tail(aggr_data_15min)
 The function `bitbay_ticker` can be used to download a ticker for a specific pair.
 
 ```{r}
-ticker_BTC_USD <- bitbay_ticker(coin = "BTC", currency = "USD")
+ticker_BTC_USD <- bitbay_ticker(pair = "BTC/EUR")
 ticker_BTC_USD
 ```
 
