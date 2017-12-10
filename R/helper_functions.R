@@ -20,7 +20,7 @@ bitbay_check <- function(pair) {
                     "\n  Currency '", currency, "'", " is not available.\n",
                     "        Available currencies: ", paste0(all_currencies, collapse = ", "), "\n"))
     if (coin == "BTC" & currency == "BTC")
-        stop("BTC/BTC cannot be traded")
+        warning("BTC/BTC cannot be traded")
 
     if (!(currency %in% all_currencies))
         stop(paste0("\n  Currency '", currency, "'", " is not available.", "\n",
