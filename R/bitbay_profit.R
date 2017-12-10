@@ -78,12 +78,12 @@ bitbay_profit <- function(coin = "BTC", amount = 1, currency = "USD", fee = 0.00
     amount_sold <- initial_amount - amount
     profit <- ifelse(!is.null(investment), (money / investment - 1) * 100, NA)
 
-    data <- c("Amount" = initial_amount,
-              "Amount sold" = amount_sold,
-              "Money (with fees)" = money,
-              "Investment" = ifelse(!is.null(investment), investment, NA),
-              "Fee (in %)" = fee,
-              "Profit (in %)" = profit)
+    data <- c(`Amount` = initial_amount,
+              `Amount sold` = amount_sold,
+              `Money (with fees)` = money,
+              `Investment` = ifelse(!is.null(investment), investment, NA),
+              `Fee (in %)` = fee,
+              `Profit (in %)` = profit)
 
     res <- list(transactions = df, summary = data)
     attr(res, "pair") <- paste0(coin, "/", currency)
