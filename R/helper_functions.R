@@ -1,3 +1,4 @@
+#' @export bitbay_check
 bitbay_check <- function(coin, currency) {
 
     all_coins <- c("Bitcoin" =  "BTC", "Ethereum" = "ETH", "Lisk" = "LSK",
