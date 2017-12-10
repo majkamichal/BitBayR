@@ -41,9 +41,6 @@ bitbay_profit <- function(coin = "BTC", amount = 1, currency = "USD", fee = 0.00
 
     bitbay_check(coin, currency)
 
-    # TODO: make sure inputs are feasible
-    # amount, investment, fee
-
     initial_amount <- amount
 
     actual_bids <- bitbay_orderbook(coin, currency)$bids
@@ -87,9 +84,6 @@ bitbay_profit <- function(coin = "BTC", amount = 1, currency = "USD", fee = 0.00
               "Investment" = ifelse(!is.null(investment), investment, NA),
               "Fee (in %)" = fee,
               "Profit (in %)" = profit)
-
-    data <- as.data.frame(data)
-    colnames(data) <- "Value"
 
     res <- list(transactions = df, summary = data)
     attr(res, "pair") <- paste0(coin, "/", currency)
