@@ -3,11 +3,8 @@
 #' This function can be used to download all transactions occurring
 #' after a specified date from BitBay market through the public API.
 #'
-#' @param coin a character string with a name of the coin.
-#' Available coins: "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC"
-#'
-#' @param currency a character string with a name of the currency.
-#' Available currencies: "USD", "EUR", "PLN"
+#' @param pair a character string with a pair.
+#' Available pairs: combinations of "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC" and "PLN", "EUR", "USD", "BTC". They have to be separated by "/".
 #'
 #' @param date a character string or date-time object that can be converted to POSIXct date-time object.
 #' By default set to Sys.time() - 1 day.
@@ -39,8 +36,7 @@
 #' \dontrun{
 #'
 #'   # All transactions occurred within last '24 hours'
-#'   data_last24h <- bitbay_trades_from_date(coin = "BTC", currency = "EUR",
-#'                                        date = Sys.time() - 60 * 60 * 24)
+#'   data_last24h <- bitbay_trades_from_date(pair = "BTC/EUR", date = Sys.time() - 60 * 60 * 24)
 #'   # 1 day = 60 seconds * 60 minutes * 24 hours
 #'
 #'   head(data_last24h)
@@ -54,8 +50,7 @@
 #'   # Transactions occurred after a specific date
 #'   date <- substring(as.character((Sys.time()) - 86400), 1, 10)
 #'   date
-#'   data_specific_day <- bitbay_trades_from_date(coin = "BTC", currency = "EUR",
-#'                                              date = date)
+#'   data_specific_day <- bitbay_trades_from_date(pair = "BTC/EUR", date = date)
 #'   head(data_specific_day)
 #'   tail(data_specific_day)
 #'
@@ -63,18 +58,20 @@
 #'   # Transactions occurred after even more specific date
 #'   date2 <- as.character((Sys.time()) - 86400)
 #'   date2
-#'   more_specific_date <- bitbay_trades_from_date(coin = "BTC", currency = "EUR",
-#'                                                      date = date2)
+#'   more_specific_date <- bitbay_trades_from_date(pair = "BTC/EUR", date = date2)
 #'   head(more_specific_date)
 #'   tail(more_specific_date)
 #' }
 #'
 #' @export bitbay_trades_from_date
 
-bitbay_trades_from_date <- function(coin = "BTC", currency = "USD",
-                                    date = Sys.time() - 60 * 60 * 24) {
+bitbay_trades_from_date <- function(pair = "BTC/USD", date = Sys.time() - 60 * 60 * 24) {
 
-    bitbay_check(coin, currency)
+    bitbay_check(pair)
+
+    split_pair <- strsplit(pair,split = "/")[[1]]
+    coin <- split_pair[1]
+    currency <- split_pair[2]
 
     date <- as.POSIXct(date, origin = "1970-01-01")
     date_minus_one_sec <- date - 1
@@ -124,7 +121,7 @@ bitbay_trades_from_date <- function(coin = "BTC", currency = "USD",
         cat("\r", strtrim(ind2, 14))
     }
     names(data) <- c("Date", "Price", "Order", "Volume", "TID")
-    attr(data, "pair") <- paste0(coin, "/", currency)
+    attr(data, "pair") <- pair
     attr(data, "download_time") <- Sys.time()
     attr(data, "class") <- c("data.frame", "bitbay_transactions")
     data <- data[nrow(data):1, ]

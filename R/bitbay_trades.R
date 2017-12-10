@@ -3,11 +3,8 @@
 #' This function can be used to download last N or all historic transactions
 #' from BitBay market through the public API.
 #'
-#' @param coin a character string with a name of the coin.
-#' Available coins: "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC"
-#'
-#' @param currency a character string with a name of the currency.
-#' Available currencies: "USD", "EUR", "PLN"
+#' @param pair a character string with a pair.
+#' Available pairs: combinations of "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC" and "PLN", "EUR", "USD", "BTC". They have to be separated by "/".
 #'
 #' @param last_trades a positive integer N or a character string "all". If an integer is specified then the last N transactions are going to be downloaded. If "all" then all historic transactions are going to be downloaded.
 #'
@@ -49,23 +46,27 @@
 #' attributes(last_50_trades)$download_time
 #'
 #'
-#' trades_LSK_EUR <- bitbay_trades(coin = "LSK", currency = "EUR", last_trades = 100)
+#' trades_LSK_EUR <- bitbay_trades(pair = "LSK/EUR", last_trades = 100)
 #' head(trades_LSK_EUR)
 #' tail(trades_LSK_EUR)
 #' attributes(trades_LSK_EUR)[c("pair", "download_time")]
 #'
 #'
 #'
-#' all_trades <- bitbay_trades(coin = "BTC", currency = "USD", last_trades = "all")
+#' all_trades <- bitbay_trades(pair = "BTC/USD", last_trades = "all")
 #' head(all_trades)
 #' tail(all_trades)
 #' }
 #'
 #' @export bitbay_trades
 
-bitbay_trades <-  function(coin = "BTC", currency = "USD", last_trades = 50) {
+bitbay_trades <-  function(pair = "BTC/EUR", last_trades = 50) {
 
-    bitbay_check(coin, currency)
+    bitbay_check(pair)
+
+    split_pair <- strsplit(pair,split = "/")[[1]]
+    coin <- split_pair[1]
+    currency <- split_pair[2]
 
     url <- paste0("https://bitbay.net/API/Public/", coin, currency, "/",
                   "trades", ".json", "?sort=desc")
@@ -111,7 +112,7 @@ bitbay_trades <-  function(coin = "BTC", currency = "USD", last_trades = 50) {
 
     data$date <- as.POSIXct(data$date, origin = "1970-01-01")
     names(data) <- c("Date", "Price", "Order", "Volume", "TID")
-    attr(data, "pair") <- paste0(coin, "/", currency)
+    attr(data, "pair") <- pair
     attr(data, "download_time") <- Sys.time()
     attr(data, "class") <- c("data.frame", "bitbay_transactions")
     data <- data[nrow(data):1, ]

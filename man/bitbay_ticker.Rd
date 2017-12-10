@@ -4,14 +4,11 @@
 \alias{bitbay_ticker}
 \title{Download ticker from the BitBay crypto-currency exhange}
 \usage{
-bitbay_ticker(coin = "BTC", currency = "USD")
+bitbay_ticker(pair = "BTC/EUR")
 }
 \arguments{
-\item{coin}{a character string with a name of the coin.
-Available coins: "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC"}
-
-\item{currency}{a character string with a name of the currency.
-Available currencies: "USD", "EUR", "PLN"}
+\item{pair}{a character string with a pair.
+Available pairs: combinations of "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC" and "PLN", "EUR", "USD", "BTC". They have to be separated by "/".}
 }
 \value{
 A data frame with two columns \code{Statistic} and \code{Value},
@@ -36,18 +33,18 @@ This function can be used to download the ticker from BitBay market
 through the public API.
 }
 \examples{
-ticker_BTC_USD <- bitbay_ticker(coin = "BTC", currency = "USD")
+ticker_BTC_USD <- bitbay_ticker(pair = "BTC/USD")
 ticker_BTC_USD
 attr(ticker_BTC_USD, "pair")
 attr(ticker_BTC_USD, "download_time")
 
 
-ticker_BTC_EUR <- bitbay_ticker(coin = "BTC", currency = "EUR")
+ticker_BTC_EUR <- bitbay_ticker(pair = "BTC/EUR")
 ticker_BTC_EUR
 attributes(ticker_BTC_EUR)[c("pair", "download_time")]
 
 
-ticker_LSK_PLN <- bitbay_ticker(coin = "LSK", currency = "PLN")
+ticker_LSK_PLN <- bitbay_ticker(pair = "LSK/PLN")
 ticker_LSK_PLN
 attributes(ticker_LSK_PLN)[4:5]
 

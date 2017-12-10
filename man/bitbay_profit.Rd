@@ -4,18 +4,15 @@
 \alias{bitbay_profit}
 \title{Perform a theoretical/virtual market order on the BitBay crypto-currency exhange}
 \usage{
-bitbay_profit(coin = "BTC", amount = 1, currency = "USD", fee = 0.003,
+bitbay_profit(pair = "BTC/EUR", amount = 1, fee = 0.003,
   investment = NULL)
 }
 \arguments{
-\item{coin}{a character string with a name of the coin.
-Available coins: "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC"}
+\item{pair}{a character string with a pair.
+Available pairs: combinations of "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC" and "PLN", "EUR", "USD", "BTC". They have to be separated by "/".}
 
 \item{amount}{a numeric vector of length 1 with the amount of the
 crypto currency to be sold}
-
-\item{currency}{a character string with a name of the currency.
-Available currencies: "USD", "EUR", "PLN"}
 
 \item{fee}{a numeric vector of length 1 with transaction fee. By default, fee = 0.003 (0.3\%)}
 
@@ -31,8 +28,7 @@ The former contains transactions and the latter summary (amount sold, profit, et
 }
 \examples{
 # Sell 1 BTC for USD with fee 0.3\% and compute profit (investment = 5000 USD)
-bitbay_profit(coin = "BTC", amount = 1, currency = "USD",
-              investment = 5000, fee = 0.003)
+bitbay_profit(pair = "BTC/EUR", amount = 1, investment = 5000, fee = 0.003)
 
 }
 \references{

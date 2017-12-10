@@ -4,14 +4,11 @@
 \alias{bitbay_orderbook}
 \title{Download orderbook from the BitBay crypto-currency exhange}
 \usage{
-bitbay_orderbook(coin = "BTC", currency = "USD")
+bitbay_orderbook(pair = "BTC/EUR")
 }
 \arguments{
-\item{coin}{a character string with a name of the coin.
-Available coins: "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC"}
-
-\item{currency}{a character string with a name of the currency.
-Available currencies: "USD", "EUR", "PLN"}
+\item{pair}{a character string with a pair.
+Available pairs: combinations of "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC" and "PLN", "EUR", "USD", "BTC". They have to be separated by "/".}
 }
 \value{
 A list with two data frames containing \code{bids} and \code{asks},
@@ -21,7 +18,7 @@ This function can be used to download the orderbook from BitBay market
 through the public API.
 }
 \examples{
-orderbook_BTC_USD <- bitbay_orderbook(coin = "BTC", currency = "USD")
+orderbook_BTC_USD <- bitbay_orderbook(pair = "BTC/EUR")
 head(orderbook_BTC_USD$bids)
 head(orderbook_BTC_USD$asks)
 

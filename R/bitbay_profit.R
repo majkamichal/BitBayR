@@ -3,14 +3,11 @@
 #' \code{bitbay_profit} function performs a theoretical/virtual market order, where
 #'  a specified amount of crypto-currency is sold at the current market price.
 #'
-#' @param coin a character string with a name of the coin.
-#' Available coins: "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC"
+#' @param pair a character string with a pair.
+#' Available pairs: combinations of "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC" and "PLN", "EUR", "USD", "BTC". They have to be separated by "/".
 #'
 #' @param amount a numeric vector of length 1 with the amount of the
 #' crypto currency to be sold
-#'
-#' @param currency a character string with a name of the currency.
-#' Available currencies: "USD", "EUR", "PLN"
 #'
 #' @param fee a numeric vector of length 1 with transaction fee. By default, fee = 0.003 (0.3\%)
 #'
@@ -32,45 +29,51 @@
 #'
 #' @examples
 #' # Sell 1 BTC for USD with fee 0.3% and compute profit (investment = 5000 USD)
-#' bitbay_profit(coin = "BTC", amount = 1, currency = "USD",
-#'               investment = 5000, fee = 0.003)
+#' bitbay_profit(pair = "BTC/EUR", amount = 1, investment = 5000, fee = 0.003)
 #'
 #' @export bitbay_profit
 
-bitbay_profit <- function(coin = "BTC", amount = 1, currency = "USD", fee = 0.003, investment = NULL) {
+bitbay_profit <- function(pair = "BTC/EUR", amount = 1, fee = 0.003, investment = NULL) {
 
-    bitbay_check(coin, currency)
+    bitbay_check(pair)
     names(amount) <- NULL
     initial_amount <- amount
 
-    actual_bids <- bitbay_orderbook(coin, currency)$bids
+    actual_bids <- bitbay_orderbook(pair)$bids
+    n_bids <- nrow(actual_bids)
     money <- 0
     i <- 1
 
     if (amount > sum(actual_bids$Volume))
         warning(paste0("Specified amount is bigger than the actual supply. \n",
-                       "Selling ", sum(actual_bids$Volume), " out of ",
-                       amount, " coins"))
+                       "Selling ", round(sum(actual_bids$Volume), 3), " out of ",
+                       round(amount, 3), " coins"))
 
     df <- NULL
     while (amount != 0) {
+
+        if (i > n_bids) {
+            break
+        }
+
         ith_bid <- actual_bids[i, ]
+
         if (ith_bid$Volume < amount) {
             amount <- amount - ith_bid$Volume
             money <- money + ith_bid$Price * (1 - fee)
-            df <- rbind(df,
-                        data.frame(bid = ith_bid$Bid,
-                                   amount = ith_bid$Volume,
-                                   price = ith_bid$Price,
-                                   fee = ith_bid$Price * fee))
+
+            df <- rbind(df, data.frame(bid = ith_bid$Bid,
+                                       amount = ith_bid$Volume,
+                                       price = ith_bid$Price,
+                                       fee = ith_bid$Price * fee))
             i <- i + 1
+
         } else {
             money <- money + (amount * ith_bid$Bid) * (1 - fee)
-            df <- rbind(df,
-                        data.frame(bid = ith_bid$Bid,
-                                   amount = amount,
-                                   price = amount * ith_bid$Bid,
-                                   fee = amount * ith_bid$Bid * fee))
+            df <- rbind(df, data.frame(bid = ith_bid$Bid,
+                                       amount = amount,
+                                       price = amount * ith_bid$Bid,
+                                       fee = amount * ith_bid$Bid * fee))
             amount <- 0
         }
     }
@@ -86,7 +89,7 @@ bitbay_profit <- function(coin = "BTC", amount = 1, currency = "USD", fee = 0.00
               `Profit (in %)` = profit)
 
     res <- list(transactions = df, summary = data)
-    attr(res, "pair") <- paste0(coin, "/", currency)
+    attr(res, "pair") <- pair
     attr(res, "download_time") <- Sys.time()
     res
 }

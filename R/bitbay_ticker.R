@@ -3,11 +3,8 @@
 #' This function can be used to download the ticker from BitBay market
 #' through the public API.
 #'
-#' @param coin a character string with a name of the coin.
-#' Available coins: "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC"
-#'
-#' @param currency a character string with a name of the currency.
-#' Available currencies: "USD", "EUR", "PLN"
+#' @param pair a character string with a pair.
+#' Available pairs: combinations of "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC" and "PLN", "EUR", "USD", "BTC". They have to be separated by "/".
 #'
 #' @return A data frame with two columns \code{Statistic} and \code{Value},
 #' in which rows correspond to the following statistics:
@@ -37,38 +34,42 @@
 #' \url{https://bitbay.net/en/api-publiczne}
 #'
 #' @examples
-#' ticker_BTC_USD <- bitbay_ticker(coin = "BTC", currency = "USD")
+#' ticker_BTC_USD <- bitbay_ticker(pair = "BTC/USD")
 #' ticker_BTC_USD
 #' attr(ticker_BTC_USD, "pair")
 #' attr(ticker_BTC_USD, "download_time")
 #'
 #'
-#' ticker_BTC_EUR <- bitbay_ticker(coin = "BTC", currency = "EUR")
+#' ticker_BTC_EUR <- bitbay_ticker(pair = "BTC/EUR")
 #' ticker_BTC_EUR
 #' attributes(ticker_BTC_EUR)[c("pair", "download_time")]
 #'
 #'
-#' ticker_LSK_PLN <- bitbay_ticker(coin = "LSK", currency = "PLN")
+#' ticker_LSK_PLN <- bitbay_ticker(pair = "LSK/PLN")
 #' ticker_LSK_PLN
 #' attributes(ticker_LSK_PLN)[4:5]
 #'
 #' @export bitbay_ticker
 
-bitbay_ticker <- function(coin = "BTC", currency = "USD") {
-    
-    bitbay_check(coin, currency)
-    
+bitbay_ticker <- function(pair = "BTC/EUR") {
+
+    bitbay_check(pair)
+
+    split_pair <- strsplit(pair,split = "/")[[1]]
+    coin <- split_pair[1]
+    currency <- split_pair[2]
+
     url <- paste0("https://bitbay.net/API/Public/", coin, currency, "/",
                   "ticker", ".json")
-    
+
     data <- jsonlite::fromJSON(url)
-    
+
     data <- as.data.frame(do.call(rbind, data))
     data$type <- rownames(data)
     data <- data[2:1]
     rownames(data) <- NULL
     colnames(data) <- c("Statistic", "Value")
-    attr(data, "pair") <- paste0(coin, "/", currency)
+    attr(data, "pair") <- pair
     attr(data, "download_time") <- Sys.time()
     data
 }

@@ -4,14 +4,11 @@
 \alias{bitbay_trades}
 \title{Download transactions from the BitBay crypto-currency exhange}
 \usage{
-bitbay_trades(coin = "BTC", currency = "USD", last_trades = 50)
+bitbay_trades(pair = "BTC/EUR", last_trades = 50)
 }
 \arguments{
-\item{coin}{a character string with a name of the coin.
-Available coins: "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC"}
-
-\item{currency}{a character string with a name of the currency.
-Available currencies: "USD", "EUR", "PLN"}
+\item{pair}{a character string with a pair.
+Available pairs: combinations of "BTC", "ETC", "LSK", "LTC", "GAME" "DASH" "BCC" and "PLN", "EUR", "USD", "BTC". They have to be separated by "/".}
 
 \item{last_trades}{a positive integer N or a character string "all". If an integer is specified then the last N transactions are going to be downloaded. If "all" then all historic transactions are going to be downloaded.}
 }
@@ -47,14 +44,14 @@ attributes(last_50_trades)$pair
 attributes(last_50_trades)$download_time
 
 
-trades_LSK_EUR <- bitbay_trades(coin = "LSK", currency = "EUR", last_trades = 100)
+trades_LSK_EUR <- bitbay_trades(pair = "LSK/EUR", last_trades = 100)
 head(trades_LSK_EUR)
 tail(trades_LSK_EUR)
 attributes(trades_LSK_EUR)[c("pair", "download_time")]
 
 
 
-all_trades <- bitbay_trades(coin = "BTC", currency = "USD", last_trades = "all")
+all_trades <- bitbay_trades(pair = "BTC/USD", last_trades = "all")
 head(all_trades)
 tail(all_trades)
 }

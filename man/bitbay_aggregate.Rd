@@ -28,7 +28,7 @@ transactions (count is 0) then the last available "Close" value is used.
 \examples{
 
 \dontrun{
-data <- bitbay_trades(coin = "BTC", currency = "USD", last_trades = 200)
+data <- bitbay_trades(pair = "BTC/USD", last_trades = 200)
 
 aggr_data_1min <- bitbay_aggregate(data, aggr_time = 60)
 aggr_data_15min <- bitbay_aggregate(data, aggr_time = 15 * 60)
